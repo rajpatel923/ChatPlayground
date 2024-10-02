@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+@layer components {
+  .flex-item-center {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+  }
+  .active-background-color {
+    background: #f0f4fc;
+  }
+
+  .button-border {
+    border: 1pxs;
+    border-radius: 15px;
+  }
+}
