@@ -12,6 +12,7 @@ export default {
       colors: {
         primaryTextColor: '#3f74ed',
         hiddenTextColor: '#7f8187',
+        lightBgColor: '#ebebec',
       },
     },
   },

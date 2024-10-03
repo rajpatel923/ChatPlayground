@@ -22,16 +22,19 @@ const FormSchema = z.object({
       }),
   })
 
+interface TextMessageProps {
+    onSendMessage: (message: string) => void;
+  }
 
 
-
-const TextMessage = () => {
+const TextMessage: React.FC<TextMessageProps> = ({onSendMessage}) => {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
       })
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
         console.log(data)
+        if (data.userInput.trim() === '') return;
         toast({
           title: "You submitted the following values:",
           description: (
@@ -40,6 +43,7 @@ const TextMessage = () => {
             </pre>
           ),
         })
+        onSendMessage(data.userInput);
         form.reset({
             userInput: "Continue conversation"
         })

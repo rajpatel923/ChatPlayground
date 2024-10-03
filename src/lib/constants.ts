@@ -27,3 +27,23 @@ export const NavigationLinks = {
   llama3: '/llama3',
   profile: '/profile',
 };
+
+export const LLMS = {
+  chatgpt: {
+    value: 'chatgpt',
+    label: 'ChatGPT',
+    chatgptModelNumber: '3.5',
+  },
+
+  gemini: {
+    value: 'gemini',
+    label: 'Gemini',
+    geminiModelNumber: '3',
+  },
+
+  llama: {
+    value: 'llama',
+    label: 'Llama',
+    LlamaModelNumber: '3',
+  },
+};
