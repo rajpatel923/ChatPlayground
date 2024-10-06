@@ -47,3 +47,12 @@ export const LLMS = {
     LlamaModelNumber: '3',
   },
 };
+
+export interface Message {
+  text: string;
+  isTyping?: boolean;
+}
+
+export interface UserInput {
+  text: string;
+}

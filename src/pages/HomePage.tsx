@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom"
 
 const HomePage = () => {
   return (
-    <div className="grid grid-cols-12 h-[100vh] w-screen">
+    <div className="grid grid-cols-12 h-[100vh] w-screen overflow-y-hidden">
         <div className="col-span-2">
             <NavBar/>
         </div>

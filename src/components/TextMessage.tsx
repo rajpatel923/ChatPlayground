@@ -45,7 +45,7 @@ const TextMessage: React.FC<TextMessageProps> = ({onSendMessage}) => {
         })
         onSendMessage(data.userInput);
         form.reset({
-            userInput: "Continue conversation"
+            userInput: ""
         })
       }
 

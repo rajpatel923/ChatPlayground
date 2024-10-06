@@ -8,15 +8,8 @@ import UserInputBar from './UserInputBar'
 import LlmDashboads from './LlmDashboads'
 import {LLMS} from '../lib/constants'
 import {ICONS} from '../lib/constants'
-
-interface Message {
-  text: string;
-  isTyping?: boolean;
-}
-interface UserInput{
-  text: string
-}
-
+import { Message, UserInput } from '../lib/constants'
+import { getChatgptResponse, getGeminiResponse, getLlamaResponse } from '@/api'
 
 
 const Playground = () => {
@@ -31,25 +24,17 @@ const Playground = () => {
   const fetchResponsesFromBackend = async (message: string) => {
     try {
       // Fetch response from ChatGPT API
-      const chatGPTRes = await fetch(`/api/chatgpt`, {
-        method: 'POST',
-        body: JSON.stringify({ message }),
-      }).then((res) => res.json());
-      setChatGPTResponse((prev) => [...prev, { text: chatGPTRes.message }]);
+      const chatGPTResFull = await getChatgptResponse(message);
+      const chatGPTRes = chatGPTResFull.response
+      setChatGPTResponse((prev) => [...prev, { text: chatGPTRes || "NO Response"}]);
 
       // Fetch response from Gemini
-      const geminiRes = await fetch(`/api/gemini`, {
-        method: 'POST',
-        body: JSON.stringify({ message }),
-      }).then((res) => res.json());
-      setGeminiResponse((prev) => [...prev, { text: geminiRes.message }]);
+      const geminiRes = await getGeminiResponse(message).then((res) => res.response);
+      setGeminiResponse((prev) => [...prev, { text: geminiRes }]);
 
       // Fetch response from Llama
-      const llamaRes = await fetch(`/api/llama`, {
-        method: 'POST',
-        body: JSON.stringify({ message }),
-      }).then((res) => res.json());
-      setLlamaResponse((prev) => [...prev, { text: llamaRes.message }]);
+      const llamaRes = await getLlamaResponse(message).then((res) => res.response);
+      setLlamaResponse((prev) => [...prev, { text: llamaRes }]);
     } catch (error) {
       console.error("Error fetching responses:", error);
     }

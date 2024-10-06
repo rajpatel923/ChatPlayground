@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { Badge } from "./ui/badge"
 import { IconType } from "react-icons";
 import TypingMessage from "./TypeingMessage";
@@ -22,22 +22,30 @@ interface Messages{
 const LlmDashboads: React.FC<LlmDashboadsProps> = ({buttonIcon: ButtonIcon, id, modelNumber, label, userInput, message}) => {
     
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
+    const initialRender = useRef(true);
     
-    // const scrollToBottom = () => {
-    //   messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    // };
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
   
-    // useEffect(() => {
-    //   scrollToBottom();
-    // }, [messages]);
+    useEffect(() => {
+        if (initialRender.current) {
+            initialRender.current = false; // Skip scrolling on the first render
+          } else {
+            // Scroll if there are new messages after the initial render
+            if (message && message.length > 0) {
+              scrollToBottom();
+            }
+          }
+    }, [message]);
     
   return (
     <div className=" mt-4 flex flex-col gap-4 mx-6 h-full">
-        <Badge className="px-2 py-1 fle w-fit gap-2">
+        <Badge className="px-2 py-1 flex w-fit gap-2 z-10">
             <ButtonIcon className="h-4 w-4"/>
             <h3 className="text-sm font-semibold">{label}</h3>
         </Badge>
-        <div className="h-full max-h-fit mx-4 button-border border overflow-y-auto">
+        <div className="h-full max-h-full mx-4 button-border border overflow-y-auto">
                     {/* User input */}
                     <div className="w-full bg-lightBgColor button-border rounded-b-none px-4 py-6">
                         <h1>User</h1>
